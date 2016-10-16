@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "A self-hosted online learning platform written in node",
   "scripts": {
-    "test": "find . -path ./node_modules -prune -o -type f -path '*.test.js' | grep -ve '^\\.\\/node_modules$' | xargs mocha --reporter=progress --bail",
-    "start": "nodemon -L server/server.js"
+    "test": "./scripts/test.sh",
+    "start": "./scripts/start.sh"
   },
   "keywords": [],
   "author": "cashweaver",
@@ -20,7 +20,6 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
-    "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "mocha": "^3.1.2",
@@ -29,6 +28,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-github": "^1.1.0",
+    "pug": "^2.0.0-beta6",
     "sinon": "^1.17.6",
     "supertest": "^2.0.0"
   },
