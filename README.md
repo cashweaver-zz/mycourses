@@ -4,8 +4,8 @@ A self-hosted online learning platform written in node.
 
 ## Development Plan
 
-- [ ] Basic views
-  - [ ] Home
+- [x] Basic views
+  - [x] Home
 - [ ] Courses and Sections
   - [ ] Courses
   - [ ] Sections
