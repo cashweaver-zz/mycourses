@@ -1,0 +1,46 @@
+{
+  "name": "online-learning-platform",
+  "version": "0.0.0",
+  "description": "A self-hosted online learning platform written in node",
+  "scripts": {
+    "test": "find . -path ./node_modules -prune -o -type f -path '*.test.js' | grep -ve '^\\.\\/node_modules$' | xargs mocha --reporter=progress --bail",
+    "start": "nodemon -L server/server.js"
+  },
+  "keywords": [],
+  "author": "cashweaver",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "mocha": "^3.1.2",
+    "mongoose": "^4.6.3",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-github": "^1.1.0",
+    "sinon": "^1.17.6",
+    "supertest": "^2.0.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "env": {
+      "mocha": true
+    },
+    "plugins": [
+      "react",
+      "jsx-a11y",
+      "import"
+    ]
+  }
+}
