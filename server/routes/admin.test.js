@@ -56,7 +56,7 @@ describe('admin', () => {
     rootPath.shouldHaveContentType('GET', 'text/html');
 
     /** @todo: update test to ensure custom render function is called */
-    it('should respond with a rendered view', () => {
+    it('should respond with a rendered view', (done) => {
       const req = {};
       const res = {
         set: sinon.spy(),
@@ -64,15 +64,44 @@ describe('admin', () => {
         end: sinon.spy(),
       };
 
-      admin.handler.renderCourses(req, res);
-      expect(res.set.calledOnce).to.be.true;
-      expect(res.write.calledOnce).to.be.true;
-      expect(res.write.calledAfter(res.set)).to.be.true;
-      expect(res.end.calledOnce).to.be.true;
-      expect(res.end.calledAfter(res.write)).to.be.true;
+      admin.handler.renderCourses(req, res)
+        .then(() => {
+          expect(res.set.calledOnce).to.be.true;
+          expect(res.write.calledOnce).to.be.true;
+          expect(res.write.calledAfter(res.set)).to.be.true;
+          expect(res.end.calledOnce).to.be.true;
+          expect(res.end.calledAfter(res.write)).to.be.true;
+          done();
+        });
     });
-
   });
+
+  describe('add course', () => {
+    const rootPath = new TestPath('/admin/courses/add');
+    rootPath.shouldHaveStatusCode('GET', 200);
+    rootPath.shouldHaveContentType('GET', 'text/html');
+
+    /** @todo: update test to ensure custom render function is called */
+    it('should respond with a rendered view', (done) => {
+      const req = {};
+      const res = {
+        set: sinon.spy(),
+        write: sinon.spy(),
+        end: sinon.spy(),
+      };
+
+      admin.handler.renderAddCourse(req, res)
+        .then(() => {
+          expect(res.set.calledOnce).to.be.true;
+          expect(res.write.calledOnce).to.be.true;
+          expect(res.write.calledAfter(res.set)).to.be.true;
+          expect(res.end.calledOnce).to.be.true;
+          expect(res.end.calledAfter(res.write)).to.be.true;
+          done();
+        });
+    });
+  });
+
 
   describe('manage sections', () => {
   });
