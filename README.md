@@ -14,8 +14,12 @@ A self-hosted online learning platform written in node.
   - [x] Course detail
   - [x] Section detail
 - [ ] Admin views
-  - [ ] Manage courses
+  - [x] Manage courses
+  - [x] Add course
+  - [ ] Edit course
   - [ ] Manage sections
+  - [ ] Add sections
+  - [ ] Edit sections
 - [ ] Users
 - [ ] User views
   - [ ] Account
