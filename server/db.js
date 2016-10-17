@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 
-const sqlitePath = (process.env.NODE_ENV === 'test') ? '/vagrant/db/test-database.sqlite' : '/vagrant/db/database.sqlite';
+
+const sqlitePath = `/vagrant/db/${process.env.NODE_ENV}-database.sqlite`;
 
 const sequelize = new Sequelize('database', 'username', 'password', {
   host: 'localhost',

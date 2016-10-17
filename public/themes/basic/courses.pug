@@ -1,0 +1,13 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2 Courses
+
+    ul
+      each course in courses
+        li
+          a(href=`/courses/${course.get('id')}`)= course.get('name')
+
+    include includes/footer.pug
