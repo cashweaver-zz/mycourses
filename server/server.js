@@ -1,23 +1,25 @@
+const bodyParser = require('body-parser');
+const config = require('./../config');
 const express = require('express');
 const morgan = require('morgan');
-const path = require('path');
 const routes = require('./routes').routes;
 
 const server = express();
 
-if (!/^(prod|production)$/.test(process.env.NODE_ENV)) {
+if (/^(dev)$/.test(process.env.NODE_ENV)) {
   server.use(morgan('dev'));
 }
 
-// TODO: allow user to configure this
-const activeThemePath = '../public/themes/basic';
-server.set('views', path.join(__dirname, activeThemePath));
-server.set('view engine', 'pug');
+// parse application/x-www-form-urlencoded
+server.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+server.use(bodyParser.json());
 server.use('/', routes.basic);
+server.use('/courses', routes.course);
 
 // TODO: change port to config variable
-module.exports = server.listen(3000, () => {
-  if (!/^(prod|production)$/.test(process.env.NODE_ENV)) {
-    console.log('Server listening on 3000');
+module.exports = server.listen(config.server.port, () => {
+  if (!/^(test)$/.test(process.env.NODE_ENV)) {
+    console.log(`Server listening on ${config.server.port} in environment ${process.env.NODE_ENV}`);
   }
 });
