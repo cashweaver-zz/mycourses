@@ -17,6 +17,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
 server.use('/', routes.basic);
+server.use('/admin', routes.admin);
 server.use('/api/1/courses', routes.course);
 server.use('/api/1/sections', routes.section);
 

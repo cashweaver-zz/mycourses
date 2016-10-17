@@ -2,7 +2,7 @@ const Course = require('./../db').Course;
 const express = require('express');
 const render = require('./theme').render;
 const Section = require('./../db').Section;
-const templates = require('./theme').templates;
+const templates = require('./theme').publicTemplates;
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ const handler = {
       if (course !== null) {
         render(res, templates.course({
           course,
-          pageTitle: course.get('name'),
+          pageTitle: course.name,
         }));
       } else {
         res.status(404);
@@ -56,14 +56,14 @@ const handler = {
         where: {
           id: req.params.courseId,
         },
-      })
+      });
     })
     .then((course) => {
       if (section !== null) {
         render(res, templates.section({
           course,
           section,
-          pageTitle: section.get('name'),
+          pageTitle: section.name,
         }));
       } else {
         res.status(404);
@@ -71,7 +71,7 @@ const handler = {
           pageTitle: '404 Not Found',
         }));
       }
-    })
+    });
   },
 };
 

@@ -3,9 +3,9 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2= course.get('name')
-    h3= section.get('name')
+    h2= course.name
+    h3= section.name
 
-    p= section.get('body')
+    p= section.body
 
     include includes/footer.pug

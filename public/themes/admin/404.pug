@@ -3,11 +3,8 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2 Courses
+    h2 404 Not Found
 
-    ul
-      each course in courses
-        li
-          a(href=`/courses/${course.id}`)= course.name
+    p We couldn't find what you were looking for. Sorry!
 
     include includes/footer.pug
