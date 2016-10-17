@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2 Courses
+
+    a(href='/courses/add') Add a Course
+
+    table
+      thead
+        tr
+          th Id
+          th Name
+          th Created At
+          th Updated At
+      tbody
+        each course in courses
+          tr
+            td= course.id
+            td
+              a(href=`/admin/courses/edit/${course.id}`)= course.name
+            td= course.createdAt
+            td= course.updatedAt
+
+    include includes/footer.pug
