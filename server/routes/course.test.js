@@ -3,8 +3,8 @@
 const Course = require('./../db').Course;
 const expect = require('chai').expect;
 // const sinon = require('sinon');
-const TestPath = require('./testHelpers').TestPath;
 const request = require('supertest');
+const TestPath = require('./testHelpers').TestPath;
 
 const app = request('http://localhost:3001');
 
@@ -16,15 +16,9 @@ const devCourses = [
 const resetTableToDevData = (done) => {
   // Drop, and re-create, the database
   Course.sync({ force: true })
-    .then(() => {
-      Course.bulkCreate(devCourses)
-        .then(() => {
-          done();
-        });
-    })
-    .catch((err) => {
-      done(err);
-    });
+    .then(() => Course.bulkCreate(devCourses))
+    .then(() => done())
+    .catch(err => done(err));
 };
 
 const resetTable = (done) => {
@@ -58,12 +52,10 @@ describe('course', () => {
     });
 
     describe('one', () => {
-      beforeEach(done => resetTableToDevData(done));
-
       existentCoursePath.shouldHaveStatusCode('GET', 200);
       existentCoursePath.shouldHaveContentType('GET', 'application/json');
 
-      it('should get a single course', (done) => {
+      it('should get the specified course', (done) => {
         app
           .get('/courses/1')
           .expect(JSON.stringify(devCourses[0]), done);
@@ -87,7 +79,10 @@ describe('course', () => {
     rootPath.shouldHaveContentType('POST', 'application/json');
 
     it('should create new course', (done) => {
-      const course = { name: 'My First Course', body: 'It is going to be great!' };
+      const course = {
+        name: 'My First Course',
+        body: 'It is going to be great!'
+      };
 
       app.post('/courses')
         .send(course)
@@ -121,10 +116,13 @@ describe('course', () => {
     });
 
     it('should not create new course if given bad data', (done) => {
-      const course = { thisFieldDoesNotExist: 'My First Course' };
+      const badCourse = {
+        // Missing name
+        body: 'My First Course',
+      };
 
       app.post('/courses')
-        .send(course)
+        .send(badCourse)
         .end((err) => {
           if (err) {
             console.error(err);
@@ -132,7 +130,7 @@ describe('course', () => {
 
           Course.findOne({
             where: {
-              name: course.name,
+              body: badCourse.body,
             },
             attributes: ['name', 'body'],
           })
