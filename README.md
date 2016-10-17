@@ -10,7 +10,7 @@ A self-hosted online learning platform written in node.
   - [x] Courses
   - [x] Sections
 - [ ] Course and Section views
-  - [ ] Course list
+  - [x] Course list
   - [ ] Course detail
   - [ ] Section detail
 - [ ] Users
