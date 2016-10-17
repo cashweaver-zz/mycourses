@@ -17,8 +17,8 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
 server.use('/', routes.basic);
-server.use('/courses', routes.course);
-server.use('/sections', routes.section);
+server.use('/api/1/courses', routes.course);
+server.use('/api/1/sections', routes.section);
 
 module.exports = server.listen(config.server.port, () => {
   if (!/^(test)$/.test(process.env.NODE_ENV)) {

@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const TestPath = require('./testHelpers').TestPath;
 
-const app = request('http://localhost:3001');
+const app = request('http://localhost:3001/api/1');
 
 const devCourses = [
   { name: 'My First Course', body: 'It is going to be great!' },
@@ -32,9 +32,9 @@ const resetTable = (done) => {
     });
 };
 
-const rootPath = new TestPath('/courses');
-const existentCoursePath = new TestPath('/courses/1');
-const nonExistentCoursePath = new TestPath('/courses/3');
+const rootPath = new TestPath('/api/1/courses');
+const existentCoursePath = new TestPath('/api/1/courses/1');
+const nonExistentCoursePath = new TestPath('/api/1/courses/999');
 
 describe('course', () => {
   describe('GET', () => {

@@ -8,7 +8,7 @@ const Section = require('./../db').Section;
 const sequelize = require('./../db').sequelize;
 const TestPath = require('./testHelpers').TestPath;
 
-const app = request('http://localhost:3001');
+const app = request('http://localhost:3001/api/1');
 
 const devCourses = [
   { name: 'My First Course', body: 'It is going to be great!' },
@@ -30,9 +30,9 @@ const resetTableToDevData = (done) => {
     .catch(err => done(err));
 };
 
-const rootPath = new TestPath('/courses/1/sections');
-const existentSectionPath = new TestPath('/sections/1');
-const nonExistentSectionPath = new TestPath('/sections/9999');
+const rootPath = new TestPath('/api/1/courses/1/sections');
+const existentSectionPath = new TestPath('/api/1/sections/1');
+const nonExistentSectionPath = new TestPath('/api/1/sections/999');
 
 describe('section', () => {
   describe('GET', () => {
