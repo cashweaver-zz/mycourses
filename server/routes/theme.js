@@ -8,6 +8,7 @@ const activeThemePath = `./../../public/themes/${config.theme.activeTheme}`;
 
 const themePaths = {
   index: require.resolve(`${activeThemePath}/index.pug`),
+  courses: require.resolve(`${activeThemePath}/courses.pug`),
 };
 
 // ref: https://strongloop.com/strongblog/bypassing-express-view-rendering-for-speed-and-modularity/
@@ -21,6 +22,7 @@ module.exports = {
   render,
   templates: {
     index: pugCompile(themePaths.index),
+    courses: pugCompile(themePaths.courses),
   },
 };
 
