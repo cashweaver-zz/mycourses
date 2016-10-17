@@ -1,9 +1,9 @@
 // TODO: refactor this, and all other helpers, into module system
 /* eslint-disable no-unused-expressions */
-const expect = require('chai').expect;
+// const expect = require('chai').expect;
 const request = require('supertest');
 
-const app = request('http://localhost:3000');
+const app = request('http://localhost:3001');
 
 /**
  * Represents a URL path ('/some/path') to perform tests on.
@@ -22,14 +22,7 @@ class TestPath {
   shouldHaveStatusCode(httpVerb, statusCode) {
     it(`should respond at ${this.path} with status code ${statusCode}`, (done) => {
       app[httpVerb.toLowerCase()](this.path)
-        .end((err, res) => {
-          if (err) {
-            console.error(err);
-          }
-
-          expect(res.status).to.equal(200);
-          done();
-        });
+        .expect(statusCode, done);
     });
   }
 
