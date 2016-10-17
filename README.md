@@ -6,9 +6,9 @@ A self-hosted online learning platform written in node.
 
 - [x] Basic views
   - [x] Home
-- [ ] Courses and Sections
+- [x] Courses and Sections
   - [x] Courses
-  - [ ] Sections
+  - [x] Sections
 - [ ] Course and Section views
   - [ ] Course list
   - [ ] Course detail
