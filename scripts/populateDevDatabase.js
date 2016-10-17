@@ -7,7 +7,7 @@ const courses = [
 
 const sections = [];
 courses.forEach((course, courseId) => {
-  for (let i = 0; i < 5; i += 1) {
+  for (let i = 1; i <= 5; i += 1) {
     sections.push({
       courseId: courseId + 1,
       name: `Section ${i}`,
