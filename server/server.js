@@ -10,14 +10,16 @@ if (/^(dev)$/.test(process.env.NODE_ENV)) {
   server.use(morgan('dev'));
 }
 
+
 // parse application/x-www-form-urlencoded
 server.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 server.use(bodyParser.json());
+
 server.use('/', routes.basic);
 server.use('/courses', routes.course);
+server.use('/sections', routes.section);
 
-// TODO: change port to config variable
 module.exports = server.listen(config.server.port, () => {
   if (!/^(test)$/.test(process.env.NODE_ENV)) {
     console.log(`Server listening on ${config.server.port} in environment ${process.env.NODE_ENV}`);

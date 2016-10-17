@@ -24,9 +24,23 @@ const Course = sequelize.define('course', {
   },
 });
 
+const Section = sequelize.define('section', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  body: {
+    type: Sequelize.TEXT,
+  },
+});
+
+Section.belongsTo(Course);
+Course.hasMany(Section);
+
 sequelize.sync();
 
 module.exports = {
-  sequelize,
   Course,
+  Section,
+  sequelize,
 };

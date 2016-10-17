@@ -1,5 +1,6 @@
 const Course = require('./../db').Course;
 const express = require('express');
+const section = require('./section');
 //const render = require('./theme').render;
 //const templates = require('./theme').templates;
 
@@ -71,5 +72,7 @@ router.post('/', handler.addOne);
 router.get('/:courseId', handler.getOne);
 router.put('/:courseId', handler.updateOne);
 router.delete('/:courseId', handler.deleteOne);
+router.get('/:courseId/sections', section.handler.getAll);
+router.post('/:courseId/sections', section.handler.addOne);
 
 module.exports = { router, handler };

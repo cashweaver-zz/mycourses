@@ -17,25 +17,55 @@ class TestPath {
   /**
    * Test status code in HTTP response from path.
    * @param {string} httpVerb - HTTP Verb to use in request to server.
-   * @param {number} statusCode - Expected response status code.
+   * @param {number} expectedStatusCode - Expected response status code.
    */
-  shouldHaveStatusCode(httpVerb, statusCode) {
-    it(`should respond at ${this.path} with status code ${statusCode}`, (done) => {
-      app[httpVerb.toLowerCase()](this.path)
-        .expect(statusCode, done);
+  shouldHaveStatusCode(httpVerb, expectedStatusCode, data) {
+    it(`should respond at ${this.path} with status code ${expectedStatusCode}`, (done) => {
+      if (data !== undefined) {
+        app[httpVerb.toLowerCase()](this.path)
+          .send(data)
+          .expect(expectedStatusCode, done);
+      } else {
+        app[httpVerb.toLowerCase()](this.path)
+          .expect(expectedStatusCode, done);
+      }
     });
   }
 
   /**
    * Test content type in HTTP response from path.
    * @param {string} httpVerb - HTTP Verb to use in request to server.
-   * @param {string} contentType - Expected response content type.
+   * @param {string} expectedContentType - Expected response content type.
    */
-  shouldHaveContentType(httpVerb, contentType) {
-    const contentTypePattern = new RegExp(contentType.replace('/', '\\/'));
-    it(`should respond at ${this.path} with a Content-Type of ${contentType}`, (done) => {
-      app[httpVerb.toLowerCase()](this.path)
-        .expect('Content-Type', contentTypePattern, done);
+  shouldHaveContentType(httpVerb, expectedContentType, data) {
+    const expectedContentTypePattern = new RegExp(expectedContentType.replace('/', '\\/'));
+    it(`should respond at ${this.path} with a Content-Type of ${expectedContentType}`, (done) => {
+      if (data !== undefined) {
+        app[httpVerb.toLowerCase()](this.path)
+          .send(data)
+          .expect('Content-Type', expectedContentTypePattern, done);
+      } else {
+        app[httpVerb.toLowerCase()](this.path)
+          .expect('Content-Type', expectedContentTypePattern, done);
+      }
+    });
+  }
+
+  /**
+   * Test body of an HTTP response.
+   * @param {string} httpVerb - HTTP Verb to use in request to server.
+   * @param {string} expectedBody - Expected response body.
+   */
+  shouldHaveResponseBody(httpVerb, expectedBody, data) {
+    it(`should respond at ${this.path} with a body of ${expectedBody}`, (done) => {
+      if (data !== undefined) {
+        app[httpVerb.toLowerCase()](this.path)
+          .send(data)
+          .expect(expectedBody, done);
+      } else {
+        app[httpVerb.toLowerCase()](this.path)
+          .expect(expectedBody, done);
+      }
     });
   }
 }
