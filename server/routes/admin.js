@@ -1,7 +1,7 @@
 const Course = require('./../db').Course;
 const express = require('express');
 const render = require('./theme').render;
-// const Section = require('./../db').Section;
+const Section = require('./../db').Section;
 const templates = require('./theme').adminTemplates;
 
 const router = express.Router();
@@ -17,17 +17,6 @@ const handler = {
       attributes: ['id', 'name', 'createdAt', 'updatedAt'],
     })
     .then((courses) => {
-      // Course.describe()
-        // .then((description) => {
-          // const tableColumns = Object.keys(description).filter(key => (
-            // !unwantedColumns.includes(key)
-          // ));
-          // render(res, templates.courses({
-            // courses,
-            // tableColumns,
-            // pageTitle: 'Courses',
-          // }));
-        // });
       render(res, templates.courses({
         courses,
         pageTitle: 'Courses',
@@ -54,12 +43,6 @@ const handler = {
       .then((description) => {
         courseDescription = description;
 
-        if (typeof req.params === 'undefined' || typeof req.params.courseId === 'undefined') {
-          res.status(404);
-          return render(res, templates.notFound({
-            pageTitle: '404 Not Found',
-          }));
-        }
         return Course.findById(req.params.courseId);
       })
       .then((course) => {
@@ -81,11 +64,93 @@ const handler = {
         }
       });
   },
+  renderSections: (req, res) => (
+    Course.findById(req.params.courseId, {
+      include: {
+        attributes: ['id', 'name', 'createdAt', 'updatedAt'],
+        model: Section,
+      },
+    })
+    .then((course) => {
+      if (course === null) {
+        res.status(404);
+        render(res, templates.notFound({
+          pageTitle: '404 Not Found',
+        }));
+      } else {
+        render(res, templates.sections({
+          course,
+          sections: course.sections,
+          pageTitle: 'Sections',
+        }));
+      }
+    })
+  ),
+  renderAddSection: (req, res) => (
+    Course.findById(req.params.courseId)
+    .then((course) => {
+      if (course === null) {
+        throw new Error('Course not found');
+      }
+      return course;
+    })
+    .then(() => Section.describe())
+    .then((description) => {
+      const unwantedFields = ['id', 'courseId', 'createdAt', 'updatedAt'];
+      unwantedFields.forEach((unwantedField) => {
+        delete description[unwantedField];
+      });
+      render(res, templates.addSection({
+        courseId: req.params.courseId,
+        fields: description,
+        pageTitle: 'Add Section',
+      }));
+    })
+    .catch(() => {
+      res.status(404);
+      render(res, templates.notFound({
+        pageTitle: '404 Not Found',
+      }));
+    })
+  ),
+  renderEditSection: (req, res) => {
+    let sectionDescription = null;
+
+    return Section.describe()
+      .then((description) => {
+        sectionDescription = description;
+
+        return Section.findById(req.params.sectionId);
+      })
+      .then((section) => {
+        if (section === null) {
+          res.status(404);
+          render(res, templates.notFound({
+            pageTitle: '404 Not Found',
+          }));
+        } else {
+          const unwantedFields = ['id', 'createdAt', 'updatedAt'];
+          unwantedFields.forEach((unwantedField) => {
+            delete sectionDescription[unwantedField];
+          });
+          render(res, templates.editSection({
+            section,
+            fields: sectionDescription,
+            pageTitle: 'Edit Section',
+          }));
+        }
+      });
+  },
 };
 
 router.get('/', handler.renderRoot);
+// Courses
 router.get('/courses', handler.renderCourses);
 router.get('/courses/add', handler.renderAddCourse);
 router.get('/courses/:courseId/edit', handler.renderEditCourse);
+// Sections
+router.get('/courses/:courseId/sections', handler.renderSections);
+router.get('/courses/:courseId/sections/add', handler.renderAddSection);
+router.get('/sections/:sectionId/edit', handler.renderEditSection);
 
 module.exports = { router, handler };

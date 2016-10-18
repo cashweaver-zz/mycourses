@@ -3,17 +3,17 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2= 'Edit Course'
+    h2= 'Edit Section'
 
-    form(method='POST' action=`http://localhost:3000/api/1/courses/${course.id}?_method=PUT`)
+    form(method='POST' action=`http://localhost:3000/api/1/sections/${section.id}?_method=PUT`)
       each fieldKey in Object.keys(fields)
         label= fieldKey
         if /VARCHAR/.test(fields[fieldKey].type)
-          input(type='text' name=`${fieldKey}` value=`${course[fieldKey]}` required)
+          input(type='text' name=`${fieldKey}` value=`${section[fieldKey]}` required)
         else if /TEXT/.test(fields[fieldKey].type)
-          textarea( name=`${fieldKey}`)= course[fieldKey]
+          textarea( name=`${fieldKey}`)= section[fieldKey]
         else if /INTEGER/.test(fields[fieldKey].type)
-          input(type='number' name=`${fieldKey}` value=`${course[fieldKey]}` required)
+          input(type='number' name=`${fieldKey}` value=`${section[fieldKey]}` required)
       input(type='submit' value='Save Changes')
 
     include includes/footer.pug

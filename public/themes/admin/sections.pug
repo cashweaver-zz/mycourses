@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2= `Sections of ${course.name}`
+
+    a(href=`/admin/courses/${course.id}/sections/add`) Add a Section
+
+    if sections.length > 0
+      table
+        thead
+          tr
+            th Id
+            th Name
+            th Created At
+            th Updated At
+            th View
+            th Edit
+            th Delete
+        tbody
+          each section in sections
+            tr
+              td= section.id
+              td= section.name
+              td= section.createdAt
+              td= section.updatedAt
+              td
+                a(href=`/courses/${course.id}/sections/${section.id}`) View
+              td
+                a(href=`/admin/sections/${section.id}/edit`) Edit
+              td
+                a(href='#' data-action='deleteSection' data-sectionId=`${section.id}`) Delete
+    else
+      p There are no sections. Create one!
+
+    include includes/footer.pug

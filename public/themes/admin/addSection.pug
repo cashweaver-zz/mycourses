@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2 Add Section
+
+    form(method='POST' action=`http://localhost:3000/api/1/sections/`)
+      each fieldKey in Object.keys(fields)
+        label= fieldKey
+        if /VARCHAR/.test(fields[fieldKey].type)
+          input(type=text name=`${fieldKey}` placeholder=`${fieldKey}` required)
+        else if /TEXT/.test(fields[fieldKey].type)
+          textarea(type=text name=`${fieldKey}` placeholder=`${fieldKey}`)
+      input(type='text' name='courseId' value=`${courseId}` hidden)
+      input(type='submit' value='Add Course')
+
+    include includes/footer.pug

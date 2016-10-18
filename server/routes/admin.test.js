@@ -135,7 +135,102 @@ describe('admin', () => {
     });
   });
 
-
   describe('manage sections', () => {
+    const existentSectionManagementPath = new TestPath('/admin/courses/1/sections')
+    const nonExistentSectionManagementPath = new TestPath('/admin/courses/999/sections')
+    existentSectionManagementPath.shouldHaveStatusCode('GET', 200);
+    existentSectionManagementPath.shouldHaveContentType('GET', 'text/html');
+    nonExistentSectionManagementPath.shouldHaveStatusCode('GET', 404);
+    nonExistentSectionManagementPath.shouldHaveContentType('GET', 'text/html');
+
+    /** @todo: update test to ensure custom render function is called */
+    it('should respond with a rendered view', (done) => {
+      const req = {
+        params: {
+          courseId: 1,
+        },
+      };
+      const res = {
+        set: sinon.spy(),
+        write: sinon.spy(),
+        end: sinon.spy(),
+      };
+
+      admin.handler.renderSections(req, res)
+        .then(() => {
+          expect(res.set.calledOnce).to.be.true;
+          expect(res.write.calledOnce).to.be.true;
+          expect(res.write.calledAfter(res.set)).to.be.true;
+          expect(res.end.calledOnce).to.be.true;
+          expect(res.end.calledAfter(res.write)).to.be.true;
+          done();
+        });
+    });
+  });
+
+  describe('add section to a course', () => {
+    const existentSectionManagementPath = new TestPath('/admin/courses/1/sections/add');
+    const nonExistentSectionManagementPath = new TestPath('/admin/courses/999/sections/add');
+    existentSectionManagementPath.shouldHaveStatusCode('GET', 200);
+    existentSectionManagementPath.shouldHaveContentType('GET', 'text/html');
+    nonExistentSectionManagementPath.shouldHaveStatusCode('GET', 404);
+    nonExistentSectionManagementPath.shouldHaveContentType('GET', 'text/html');
+
+    /** @todo: update test to ensure custom render function is called */
+    it('should respond with a rendered view', (done) => {
+      const req = {
+        params: {
+          courseId: 1,
+        },
+      };
+      const res = {
+        set: sinon.spy(),
+        write: sinon.spy(),
+        end: sinon.spy(),
+      };
+
+      admin.handler.renderAddSection(req, res)
+        .then(() => {
+          expect(res.set.calledOnce).to.be.true;
+          expect(res.write.calledOnce).to.be.true;
+          expect(res.write.calledAfter(res.set)).to.be.true;
+          expect(res.end.calledOnce).to.be.true;
+          expect(res.end.calledAfter(res.write)).to.be.true;
+          done();
+        });
+    });
+  });
+
+  describe('edit a section', () => {
+    const existentSectionEditPath = new TestPath('/admin/sections/1/edit');
+    const nonExistentSectionEditPath = new TestPath('/admin/sections/999/edit');
+    existentSectionEditPath.shouldHaveStatusCode('GET', 200);
+    existentSectionEditPath.shouldHaveContentType('GET', 'text/html');
+    nonExistentSectionEditPath.shouldHaveStatusCode('GET', 404);
+    nonExistentSectionEditPath.shouldHaveContentType('GET', 'text/html');
+
+    /** @todo: update test to ensure custom render function is called */
+    it('should respond with a rendered view', (done) => {
+      const req = {
+        params: {
+          sectionId: 1,
+        },
+      };
+      const res = {
+        set: sinon.spy(),
+        write: sinon.spy(),
+        end: sinon.spy(),
+      };
+
+      admin.handler.renderEditSection(req, res)
+        .then(() => {
+          expect(res.set.calledOnce).to.be.true;
+          expect(res.write.calledOnce).to.be.true;
+          expect(res.write.calledAfter(res.set)).to.be.true;
+          expect(res.end.calledOnce).to.be.true;
+          expect(res.end.calledAfter(res.write)).to.be.true;
+          done();
+        });
+    });
   });
 });
