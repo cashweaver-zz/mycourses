@@ -20,12 +20,12 @@ A self-hosted online learning platform written in node.
   - [x] Manage sections
   - [x] Add sections
   - [x] Edit sections
-- [ ] Users
-- [ ] User views
-  - [ ] Detail
-  - [ ] Add
-  - [ ] Edit
-  - [ ] Manage (admin)
+- [x] Users
+- [x] User views
+  - [x] Detail
+  - [x] Add
+  - [x] Edit
+  - [x] Manage (admin)
 - [ ] Authentication
 - [ ] Authorization
   - Only authorized users can
@@ -43,3 +43,8 @@ A self-hosted online learning platform written in node.
   - [ ] Register
   - [ ] Login
   - [ ] Logout
+
+## Lessons Learned
+
+- REST APIs
+  - Don't reimplement the wheel! Use Loopback or another pre-existing solution.

@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2 Users
+
+    a(href='/admin/users/add') Add a User
+
+    table
+      thead
+        tr
+          th Id
+          th Name
+          th Email
+          th Created At
+          th Updated At
+          th View
+          th Edit
+          th Delete
+      tbody
+        each user in users
+          tr
+            td= user.id
+            td= user.fullName
+            td= user.email
+            td= user.createdAt
+            td= user.updatedAt
+            td
+              a(href=`/users/${user.id}`) View
+            td
+              a(href=`/admin/users/${user.id}/edit`) Edit
+            td
+              a(href='#' data-action='deleteUser' data-userId=`${user.id}`) Delete
+
+    include includes/footer.pug
