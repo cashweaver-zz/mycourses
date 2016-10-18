@@ -104,7 +104,7 @@ describe('admin', () => {
 
   describe('edit course', () => {
     const editExistentCoursePath = new TestPath('/admin/courses/1/edit');
-    const editNonExistentCoursePath = new TestPath('/admin/courses/1/edit');
+    const editNonExistentCoursePath = new TestPath('/admin/courses/999/edit');
     editExistentCoursePath.shouldHaveStatusCode('GET', 200);
     editExistentCoursePath.shouldHaveContentType('GET', 'text/html');
     editNonExistentCoursePath.shouldHaveStatusCode('GET', 404);
@@ -112,7 +112,11 @@ describe('admin', () => {
 
     /** @todo: update test to ensure custom render function is called */
     it('should respond with a rendered view', (done) => {
-      const req = {};
+      const req = {
+        params: {
+          courseId: 1,
+        },
+      };
       const res = {
         set: sinon.spy(),
         write: sinon.spy(),
