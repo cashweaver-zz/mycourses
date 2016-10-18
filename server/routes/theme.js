@@ -19,6 +19,7 @@ const adminThemePaths = {
   editCourse: require.resolve(`${adminThemePath}/editCourse.pug`),
   courses: require.resolve(`${adminThemePath}/courses.pug`),
   index: require.resolve(`${adminThemePath}/index.pug`),
+  notFound: require.resolve(`${adminThemePath}/404.pug`),
 };
 
 // ref: https://strongloop.com/strongblog/bypassing-express-view-rendering-for-speed-and-modularity/
@@ -42,6 +43,7 @@ module.exports = {
     courses: pugCompile(adminThemePaths.courses),
     editCourse: pugCompile(adminThemePaths.editCourse),
     index: pugCompile(adminThemePaths.index),
+    notFound: pugCompile(adminThemePaths.notFound),
   },
 };
 

@@ -54,11 +54,20 @@ const handler = {
       .then((description) => {
         courseDescription = description;
 
+        if (typeof req.params === 'undefined' || typeof req.params.courseId === 'undefined') {
+          res.status(404);
+          return render(res, templates.notFound({
+            pageTitle: '404 Not Found',
+          }));
+        }
         return Course.findById(req.params.courseId);
       })
       .then((course) => {
         if (course === null) {
-          // do a thing
+          res.status(404);
+          render(res, templates.notFound({
+            pageTitle: '404 Not Found',
+          }));
         } else {
           const unwantedFields = ['id', 'createdAt', 'updatedAt'];
           unwantedFields.forEach((unwantedField) => {
