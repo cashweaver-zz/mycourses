@@ -14,13 +14,24 @@ html(lang="en")
           th Name
           th Created At
           th Updated At
+          th Sections
+          th View
+          th Edit
+          th Delete
       tbody
         each course in courses
           tr
             td= course.id
-            td
-              a(href=`/admin/courses/edit/${course.id}`)= course.name
+            td= course.name
             td= course.createdAt
             td= course.updatedAt
+            td
+              a(href=`/admin/courses/${course.id}/sections`) Sections
+            td
+              a(href=`/courses/${course.id}`) View
+            td
+              a(href=`/admin/courses/${course.id}/edit`) Edit
+            td
+              a(href='#' data-action='deleteCourse' data-courseId=`${course.id}`) Delete
 
     include includes/footer.pug

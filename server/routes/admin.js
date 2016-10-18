@@ -47,10 +47,36 @@ const handler = {
         }));
       })
   ),
+  renderEditCourse: (req, res) => {
+    let courseDescription = null;
+
+    return Course.describe()
+      .then((description) => {
+        courseDescription = description;
+
+        return Course.findById(req.params.courseId);
+      })
+      .then((course) => {
+        if (course === null) {
+          // do a thing
+        } else {
+          const unwantedFields = ['id', 'createdAt', 'updatedAt'];
+          unwantedFields.forEach((unwantedField) => {
+            delete courseDescription[unwantedField];
+          });
+          render(res, templates.editCourse({
+            course,
+            fields: courseDescription,
+            pageTitle: 'Edit Course',
+          }));
+        }
+      });
+  },
 };
 
 router.get('/', handler.renderRoot);
 router.get('/courses', handler.renderCourses);
 router.get('/courses/add', handler.renderAddCourse);
+router.get('/courses/:courseId/edit', handler.renderEditCourse);
 
 module.exports = { router, handler };

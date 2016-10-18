@@ -16,6 +16,7 @@ const publicThemePaths = {
 const adminThemePath = './../../public/themes/admin';
 const adminThemePaths = {
   addCourse: require.resolve(`${adminThemePath}/addCourse.pug`),
+  editCourse: require.resolve(`${adminThemePath}/editCourse.pug`),
   courses: require.resolve(`${adminThemePath}/courses.pug`),
   index: require.resolve(`${adminThemePath}/index.pug`),
 };
@@ -39,6 +40,7 @@ module.exports = {
   adminTemplates: {
     addCourse: pugCompile(adminThemePaths.addCourse),
     courses: pugCompile(adminThemePaths.courses),
+    editCourse: pugCompile(adminThemePaths.editCourse),
     index: pugCompile(adminThemePaths.index),
   },
 };

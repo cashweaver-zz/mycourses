@@ -51,9 +51,9 @@ describe('admin', () => {
   });
 
   describe('manage courses', () => {
-    const rootPath = new TestPath('/admin/courses');
-    rootPath.shouldHaveStatusCode('GET', 200);
-    rootPath.shouldHaveContentType('GET', 'text/html');
+    const manageCoursesPath = new TestPath('/admin/courses');
+    manageCoursesPath.shouldHaveStatusCode('GET', 200);
+    manageCoursesPath.shouldHaveContentType('GET', 'text/html');
 
     /** @todo: update test to ensure custom render function is called */
     it('should respond with a rendered view', (done) => {
@@ -77,9 +77,9 @@ describe('admin', () => {
   });
 
   describe('add course', () => {
-    const rootPath = new TestPath('/admin/courses/add');
-    rootPath.shouldHaveStatusCode('GET', 200);
-    rootPath.shouldHaveContentType('GET', 'text/html');
+    const addCoursePath = new TestPath('/admin/courses/add');
+    addCoursePath.shouldHaveStatusCode('GET', 200);
+    addCoursePath.shouldHaveContentType('GET', 'text/html');
 
     /** @todo: update test to ensure custom render function is called */
     it('should respond with a rendered view', (done) => {
@@ -91,6 +91,35 @@ describe('admin', () => {
       };
 
       admin.handler.renderAddCourse(req, res)
+        .then(() => {
+          expect(res.set.calledOnce).to.be.true;
+          expect(res.write.calledOnce).to.be.true;
+          expect(res.write.calledAfter(res.set)).to.be.true;
+          expect(res.end.calledOnce).to.be.true;
+          expect(res.end.calledAfter(res.write)).to.be.true;
+          done();
+        });
+    });
+  });
+
+  describe('edit course', () => {
+    const editExistentCoursePath = new TestPath('/admin/courses/1/edit');
+    const editNonExistentCoursePath = new TestPath('/admin/courses/1/edit');
+    editExistentCoursePath.shouldHaveStatusCode('GET', 200);
+    editExistentCoursePath.shouldHaveContentType('GET', 'text/html');
+    editNonExistentCoursePath.shouldHaveStatusCode('GET', 404);
+    editNonExistentCoursePath.shouldHaveContentType('GET', 'text/html');
+
+    /** @todo: update test to ensure custom render function is called */
+    it('should respond with a rendered view', (done) => {
+      const req = {};
+      const res = {
+        set: sinon.spy(),
+        write: sinon.spy(),
+        end: sinon.spy(),
+      };
+
+      admin.handler.renderEditCourse(req, res)
         .then(() => {
           expect(res.set.calledOnce).to.be.true;
           expect(res.write.calledOnce).to.be.true;

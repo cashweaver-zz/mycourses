@@ -1,3 +1,20 @@
 footer#footer.footer
   p.
     This is the footer! It goes at the foot.
+
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+script(type='text/javascript').
+  $(() => {
+    $('a[data-action="deleteCourse"]').on('click', (e) => {
+      e.preventDefault();
+
+      const courseId = e.target.getAttribute('data-courseId');
+      $.ajax(`http://localhost:3000/api/1/courses/${courseId}`, {
+        method: 'DELETE',
+        success: () => {
+          // Refresh page to show changes
+          document.location.reload();
+        },
+      });
+    });
+  });
