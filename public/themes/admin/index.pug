@@ -3,11 +3,6 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2 Courses
-
-    ul
-      each course in courses
-        li
-          a(href=`/courses/${course.id}`)= course.name
+    h2 Home page
 
     include includes/footer.pug
