@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2= 'Edit User'
+
+    form(method='POST' action=`http://localhost:3000/api/1/users/${user.id}?_method=PUT`)
+      each fieldKey in Object.keys(fields)
+        label= fieldKey
+        if /VARCHAR/.test(fields[fieldKey].type)
+          input(type='text' name=`${fieldKey}` value=`${user[fieldKey]}` required)
+        else if /TEXT/.test(fields[fieldKey].type)
+          textarea( name=`${fieldKey}`)= user[fieldKey]
+        else if /INTEGER/.test(fields[fieldKey].type)
+          input(type='number' name=`${fieldKey}` value=`${user[fieldKey]}` required)
+      input(type='submit' value='Save Changes')
+
+    include includes/footer.pug

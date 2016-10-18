@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    h2 Add User
+
+    form(method='POST' action='http://localhost:3000/api/1/users')
+      each fieldKey in Object.keys(fields)
+        label= fieldKey
+        if /VARCHAR/.test(fields[fieldKey].type)
+          input(type=text name=`${fieldKey}` placeholder=`${fieldKey}` required)
+        else if /TEXT/.test(fields[fieldKey].type)
+          textarea(type=text name=`${fieldKey}` placeholder=`${fieldKey}`)
+      input(type='submit' value='Add User')
+
+    include includes/footer.pug
