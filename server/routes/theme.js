@@ -16,10 +16,13 @@ const publicThemePaths = {
 const adminThemePath = './../../public/themes/admin';
 const adminThemePaths = {
   addCourse: require.resolve(`${adminThemePath}/addCourse.pug`),
+  addSection: require.resolve(`${adminThemePath}/addSection.pug`),
   editCourse: require.resolve(`${adminThemePath}/editCourse.pug`),
+  editSection: require.resolve(`${adminThemePath}/editSection.pug`),
   courses: require.resolve(`${adminThemePath}/courses.pug`),
   index: require.resolve(`${adminThemePath}/index.pug`),
   notFound: require.resolve(`${adminThemePath}/404.pug`),
+  sections: require.resolve(`${adminThemePath}/sections.pug`),
 };
 
 // ref: https://strongloop.com/strongblog/bypassing-express-view-rendering-for-speed-and-modularity/
@@ -40,10 +43,13 @@ module.exports = {
   },
   adminTemplates: {
     addCourse: pugCompile(adminThemePaths.addCourse),
+    addSection: pugCompile(adminThemePaths.addSection),
     courses: pugCompile(adminThemePaths.courses),
     editCourse: pugCompile(adminThemePaths.editCourse),
+    editSection: pugCompile(adminThemePaths.editSection),
     index: pugCompile(adminThemePaths.index),
     notFound: pugCompile(adminThemePaths.notFound),
+    sections: pugCompile(adminThemePaths.sections),
   },
 };
 

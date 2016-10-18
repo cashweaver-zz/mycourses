@@ -17,4 +17,17 @@ script(type='text/javascript').
         },
       });
     });
+
+    $('a[data-action="deleteSection"]').on('click', (e) => {
+      e.preventDefault();
+
+      const sectionId = e.target.getAttribute('data-sectionId');
+      $.ajax(`http://localhost:3000/api/1/sections/${sectionId}`, {
+        method: 'DELETE',
+        success: () => {
+          // Refresh page to show changes
+          document.location.reload();
+        },
+      });
+    });
   });
