@@ -3,15 +3,16 @@ const express = require('express');
 const render = require('./theme').render;
 const Section = require('./../db').Section;
 const templates = require('./theme').adminTemplates;
+const User = require('./../db').User;
 
 const router = express.Router();
-
 const handler = {
   renderRoot: (req, res) => {
     render(res, templates.index({
       pageTitle: 'Online Learning Platform',
     }));
   },
+
   renderCourses: (req, res) => (
     Course.findAll({
       attributes: ['id', 'name', 'createdAt', 'updatedAt'],
@@ -64,6 +65,7 @@ const handler = {
         }
       });
   },
+
   renderSections: (req, res) => (
     Course.findById(req.params.courseId, {
       include: {
@@ -141,16 +143,73 @@ const handler = {
         }
       });
   },
+
+  renderUsers: (req, res) => (
+    User.findAll({
+      attributes: ['id', 'fullName', 'email', 'createdAt', 'updatedAt'],
+    })
+    .then((users) => {
+      render(res, templates.users({
+        users,
+        pageTitle: 'Users',
+      }));
+    })
+  ),
+  renderAddUser: (req, res) => (
+    User.describe()
+      .then((description) => {
+        const unwantedFields = ['id', 'createdAt', 'updatedAt'];
+        unwantedFields.forEach((unwantedField) => {
+          delete description[unwantedField];
+        });
+        render(res, templates.addUser({
+          fields: description,
+          pageTitle: 'Add User',
+        }));
+      })
+  ),
+  renderEditUser: (req, res) => {
+    let userDescription = null;
+
+    return User.describe()
+      .then((description) => {
+        userDescription = description;
+
+        return User.findById(req.params.userId);
+      })
+      .then((user) => {
+        if (user === null) {
+          res.status(404);
+          render(res, templates.notFound({
+            pageTitle: '404 Not Found',
+          }));
+        } else {
+          const unwantedFields = ['id', 'createdAt', 'updatedAt'];
+          unwantedFields.forEach((unwantedField) => {
+            delete userDescription[unwantedField];
+          });
+          render(res, templates.editUser({
+            user,
+            fields: userDescription,
+            pageTitle: 'Edit User',
+          }));
+        }
+      });
+  },
 };
 
 router.get('/', handler.renderRoot);
-// Courses
+// Course
 router.get('/courses', handler.renderCourses);
 router.get('/courses/add', handler.renderAddCourse);
 router.get('/courses/:courseId/edit', handler.renderEditCourse);
-// Sections
+// Section
 router.get('/courses/:courseId/sections', handler.renderSections);
 router.get('/courses/:courseId/sections/add', handler.renderAddSection);
 router.get('/sections/:sectionId/edit', handler.renderEditSection);
+// User
+router.get('/users', handler.renderUsers);
+router.get('/users/add', handler.renderAddUser);
+router.get('/users/:userId/edit', handler.renderEditUser);
 
 module.exports = { router, handler };

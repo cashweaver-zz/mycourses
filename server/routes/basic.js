@@ -3,6 +3,7 @@ const express = require('express');
 const render = require('./theme').render;
 const Section = require('./../db').Section;
 const templates = require('./theme').publicTemplates;
+const User = require('./../db').User;
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ const handler = {
       pageTitle: 'Online Learning Platform',
     }));
   },
+
   renderCourses: (req, res) => (
     Course.findAll()
       .then((courses) => {
@@ -42,6 +44,7 @@ const handler = {
       }
     })
   ),
+
   renderSection: (req, res) => {
     let section = null;
     return Section.findOne({
@@ -73,11 +76,47 @@ const handler = {
       }
     });
   },
+
+  renderUsers: (req, res) => (
+    User.findAll()
+      .then((users) => {
+        render(res, templates.users({
+          users,
+          pageTitle: 'Users',
+        }));
+      })
+  ),
+  renderUser: (req, res) => (
+    User.findOne({
+      where: {
+        id: req.params.userId,
+      },
+    })
+    .then((user) => {
+      if (user !== null) {
+        render(res, templates.user({
+          user,
+          pageTitle: user.name,
+        }));
+      } else {
+        res.status(404);
+        render(res, templates.notFound({
+          pageTitle: '404 Not Found',
+        }));
+      }
+    })
+  ),
+
+
 };
 
 router.get('/', handler.renderRoot);
+// Course
 router.get('/courses', handler.renderCourses);
 router.get('/courses/:courseId', handler.renderCourse);
+// Section
 router.get('/courses/:courseId/sections/:sectionId', handler.renderSection);
+// User
+router.get('/users/:userId', handler.renderUser);
 
 module.exports = { router, handler };

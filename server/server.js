@@ -25,6 +25,7 @@ server.use('/', routes.basic);
 server.use('/admin', routes.admin);
 server.use('/api/1/courses', routes.course);
 server.use('/api/1/sections', routes.section);
+server.use('/api/1/users', routes.user);
 
 module.exports = server.listen(config.server.port, () => {
   if (!/^(test)$/.test(process.env.NODE_ENV)) {
