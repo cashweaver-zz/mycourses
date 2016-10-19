@@ -1,9 +1,18 @@
-ul
-  li
-    a(href='/') Home
-  li
-    a(href='/courses') Courses
-  li
-    a(href='/login') Log In
-  li
-    a(href='/register') Register
+nav.navbar
+  a.navbar-brand(href='/') Cash's MOOCs
+
+  ul.nav.navbar-nav
+    li.nav-item
+      a.nav-link(href='/courses') Courses
+
+  ul.nav.navbar-nav.pull-sm-right
+    if curUser
+      li.nav-item
+        span.nav-link= `Hello, ${curUser.fullName.split(' ')[0]}`
+      li.nav-item
+        a.nav-link(href='/auth/logout') Log Out
+      li.nav-item
+        a.nav-link(href='/admin') Admin
+    else
+      li.nav-item
+        a.nav-link(href='/login') Log In

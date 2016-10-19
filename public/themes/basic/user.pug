@@ -3,8 +3,11 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2= user.fullName
+    div.container
+      div.row
+        div.col-xs-12
+          h2= user.fullName
 
-    p= user.email
+          p= user.email
 
     include includes/footer.pug

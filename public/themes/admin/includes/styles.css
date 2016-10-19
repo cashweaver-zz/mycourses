@@ -1,0 +1,24 @@
+body {
+  padding-top: 54px;
+}
+
+.sidebar {
+  position: fixed;
+  height: calc(100vh - 54px);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar,
+.main {
+  padding-top: 30px;
+}
+
+table.content-manage td {
+  /* Align properly with button-group */
+  vertical-align: middle;
+}
+
+.btn i + span {
+  padding-left: 10px;
+}
+

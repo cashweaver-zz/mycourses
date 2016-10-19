@@ -1,5 +1,6 @@
 const Course = require('./../db').Course;
 const express = require('express');
+const moment = require('moment');
 const render = require('./theme').render;
 const Section = require('./../db').Section;
 const templates = require('./theme').adminTemplates;
@@ -18,8 +19,14 @@ const handler = {
       attributes: ['id', 'name', 'createdAt', 'updatedAt'],
     })
     .then((courses) => {
+      const formattedCourses = courses.map(course => (
+        Object.assign({}, course.dataValues, {
+          createdAt: moment(course.createdAt).format('MMMM Do YYYY, HH:mm:ss'),
+          updatedAt: moment(course.updatedAt).format('MMMM Do YYYY, HH:mm:ss'),
+        })
+      ));
       render(res, templates.courses({
-        courses,
+        courses: formattedCourses,
         pageTitle: 'Courses',
       }));
     })
@@ -80,9 +87,15 @@ const handler = {
           pageTitle: '404 Not Found',
         }));
       } else {
+        const formattedSections = course.sections.map(section => (
+          Object.assign({}, section.dataValues, {
+            createdAt: moment(section.createdAt).format('MMMM Do YYYY, HH:mm:ss'),
+            updatedAt: moment(section.updatedAt).format('MMMM Do YYYY, HH:mm:ss'),
+          })
+        ));
         render(res, templates.sections({
           course,
-          sections: course.sections,
+          sections: formattedSections,
           pageTitle: 'Sections',
         }));
       }
@@ -149,8 +162,14 @@ const handler = {
       attributes: ['id', 'fullName', 'email', 'createdAt', 'updatedAt'],
     })
     .then((users) => {
+      const formattedUsers = users.map(user => (
+        Object.assign({}, user.dataValues, {
+          createdAt: moment(user.createdAt).format('MMMM Do YYYY, HH:mm:ss'),
+          updatedAt: moment(user.updatedAt).format('MMMM Do YYYY, HH:mm:ss'),
+        })
+      ));
       render(res, templates.users({
-        users,
+        users: formattedUsers,
         pageTitle: 'Users',
       }));
     })
@@ -174,6 +193,7 @@ const handler = {
     return User.describe()
       .then((description) => {
         userDescription = description;
+        console.log('userDescription', description);
 
         return User.findById(req.params.userId);
       })

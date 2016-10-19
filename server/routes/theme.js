@@ -9,6 +9,7 @@ const publicThemePaths = {
   course: require.resolve(`${activeThemePath}/course.pug`),
   courses: require.resolve(`${activeThemePath}/courses.pug`),
   index: require.resolve(`${activeThemePath}/index.pug`),
+  login: require.resolve(`${activeThemePath}/login.pug`),
   notFound: require.resolve(`${activeThemePath}/404.pug`),
   section: require.resolve(`${activeThemePath}/section.pug`),
   user: require.resolve(`${activeThemePath}/user.pug`),
@@ -41,6 +42,7 @@ module.exports = {
   publicTemplates: {
     course: pugCompile(publicThemePaths.course),
     courses: pugCompile(publicThemePaths.courses),
+    login: pugCompile(publicThemePaths.login),
     index: pugCompile(publicThemePaths.index),
     notFound: pugCompile(publicThemePaths.notFound),
     section: pugCompile(publicThemePaths.section),

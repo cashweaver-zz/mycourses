@@ -1,37 +1,45 @@
 doctype html
-html(lang="en")
+html(lang='en')
   include includes/head.pug
   body
     include includes/header.pug
-    h2 Courses
+    div.container-fluid
+      div.row
+        include includes/sidebar
+        div.col-sm-9.offset-sm-3.col-md-10.offset-md-2.main
+          h2 Courses
 
-    a(href='/admin/courses/add') Add a Course
+          a.btn.btn-success(href='/admin/courses/add')
+            i.fa.fa-plus(aria-hidden='true')
+            span Add a Course
 
-    table
-      thead
-        tr
-          th Id
-          th Name
-          th Created At
-          th Updated At
-          th Sections
-          th View
-          th Edit
-          th Delete
-      tbody
-        each course in courses
-          tr
-            td= course.id
-            td= course.name
-            td= course.createdAt
-            td= course.updatedAt
-            td
-              a(href=`/admin/courses/${course.id}/sections`) Sections
-            td
-              a(href=`/courses/${course.id}`) View
-            td
-              a(href=`/admin/courses/${course.id}/edit`) Edit
-            td
-              a(href='#' data-action='deleteCourse' data-courseId=`${course.id}`) Delete
-
+          table.table.table-hover.table-responsive.content-manage
+            thead.thead-default
+              tr
+                th Id
+                th Name
+                th Created At
+                th Updated At
+                th Sections
+                th
+            tbody
+              each course in courses
+                tr
+                  td= course.id
+                  td= course.name
+                  td= course.createdAt
+                  td= course.updatedAt
+                  td
+                    a(href=`/admin/courses/${course.id}/sections`) Sections
+                  td
+                    div.btn-group(role='group')
+                      a.btn.btn-secondary(href=`/courses/${course.id}`)
+                        i.fa.fa-eye(aria-hidden='true')
+                        span.sr-only View
+                      a.btn.btn-secondary(href=`/admin/courses/${course.id}/edit`)
+                        i.fa.fa-pencil(aria-hidden='true')
+                        span.sr-only Edit
+                      a.btn.btn-danger(href='#' data-action='deleteCourse' data-courseId=`${course.id}`)
+                        i.fa.fa-trash(aria-hidden='true')
+                        span.sr-only Delete
     include includes/footer.pug

@@ -43,6 +43,8 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  githubId: Sequelize.STRING,
+  facebookId: Sequelize.STRING,
 });
 
 Section.belongsTo(Course);
