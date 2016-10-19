@@ -3,6 +3,7 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2 Home page
-
-    include includes/footer.pug
+    div.container-fluid
+      div.row
+        include includes/sidebar
+        div.col-sm-9.offset-sm-3.col-md-10.offset-md-2.main

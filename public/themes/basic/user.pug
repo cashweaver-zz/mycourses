@@ -6,11 +6,8 @@ html(lang="en")
     div.container
       div.row
         div.col-xs-12
-          h2 Courses
+          h2= user.fullName
 
-          ul
-            each course in courses
-              li
-                a(href=`/courses/${course.id}`)= course.name
+          p= user.email
 
     include includes/footer.pug

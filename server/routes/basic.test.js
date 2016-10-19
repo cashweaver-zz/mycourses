@@ -57,6 +57,28 @@ describe('basic', () => {
     someNonExistentEntpoint.shouldHaveContentType('GET', 'text/html');
   });
 
+  describe('/login', () => {
+    const rootPath = new TestPath('/login');
+    rootPath.shouldHaveStatusCode('GET', 200);
+    rootPath.shouldHaveContentType('GET', 'text/html');
+
+    /** @todo: update test to ensure custom render function is called */
+    it('should respond with a rendered view', () => {
+      const req = {};
+      const res = {
+        set: sinon.spy(),
+        write: sinon.spy(),
+        end: sinon.spy(),
+      };
+      basic.handler.renderLogin(req, res);
+      expect(res.set.calledOnce).to.be.true;
+      expect(res.write.calledOnce).to.be.true;
+      expect(res.write.calledAfter(res.set)).to.be.true;
+      expect(res.end.calledOnce).to.be.true;
+      expect(res.end.calledAfter(res.write)).to.be.true;
+    });
+  });
+
   describe('/courses', () => {
     const coursesPath = new TestPath('/courses');
     coursesPath.shouldHaveStatusCode('GET', 200);
