@@ -6,11 +6,10 @@ html(lang="en")
     div.container
       div.row
         div.col-xs-12
-          h2 Courses
+          h2 Log In
 
-          ul
-            each course in courses
-              li
-                a(href=`/courses/${course.id}`)= course.name
+          a.btn.btn-secondary(href='/auth/github')
+            i.fa.fa-github(aria-hidden='true')
+            span Github
 
     include includes/footer.pug

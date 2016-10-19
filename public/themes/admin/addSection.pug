@@ -3,16 +3,22 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2 Add Section
+    div.container-fluid
+      div.row
+        include includes/sidebar
+        div.col-sm-9.offset-sm-3.col-md-10.offset-md-2.main
+          h2 Add Section
 
-    form(method='POST' action=`http://localhost:3000/api/1/sections/`)
-      each fieldKey in Object.keys(fields)
-        label= fieldKey
-        if /VARCHAR/.test(fields[fieldKey].type)
-          input(type=text name=`${fieldKey}` placeholder=`${fieldKey}` required)
-        else if /TEXT/.test(fields[fieldKey].type)
-          textarea(type=text name=`${fieldKey}` placeholder=`${fieldKey}`)
-      input(type='text' name='courseId' value=`${courseId}` hidden)
-      input(type='submit' value='Add Course')
+          form(method='POST' action=`http://localhost:3000/api/1/sections/`)
+            each fieldKey in Object.keys(fields)
+              div.form-group
+                label(for=`${fieldKey}`)= `${fieldKey[0].toUpperCase()}${fieldKey.split(/(?=[A-Z])/).join(' ').slice(1)}`
+                if /VARCHAR/.test(fields[fieldKey].type)
+                  input.form-control(type=text name=`${fieldKey}` placeholder=`${fieldKey}`)
+                else if /TEXT/.test(fields[fieldKey].type)
+                  textarea.form-control(type=text name=`${fieldKey}` placeholder=`${fieldKey}`)
+                else if /INTEGER/.test(fields[fieldKey].type)
+                  input.form-control(type='number' name=`${fieldKey}` value=`${section[fieldKey]}`)
+            input.btn.btn-success(type='submit' value='Add Section')
 
     include includes/footer.pug

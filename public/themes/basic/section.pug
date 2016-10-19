@@ -3,9 +3,12 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2= course.name
-    h3= section.name
+    div.container
+      div.row
+        div.col-xs-12
+          h2= course.name
+          h3= section.name
 
-    p= section.body
+          p= section.body
 
     include includes/footer.pug

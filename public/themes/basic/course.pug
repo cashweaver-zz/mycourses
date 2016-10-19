@@ -3,13 +3,16 @@ html(lang="en")
   include includes/head.pug
   body
     include includes/header.pug
-    h2= course.name
+    div.container
+      div.row
+        div.col-xs-12
+          h2= course.name
 
-    p= course.body
+          p= course.body
 
-    ul
-      each section in course.sections
-        li
-          a(href=`/courses/${course.id}/sections/${section.id}`)= section.name
+          ul
+            each section in course.sections
+              li
+                a(href=`/courses/${course.id}/sections/${section.id}`)= section.name
 
     include includes/footer.pug

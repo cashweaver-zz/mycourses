@@ -11,6 +11,15 @@ const handler = {
   renderRoot: (req, res) => {
     render(res, templates.index({
       pageTitle: 'Online Learning Platform',
+      curUser: req.user,
+    }));
+  },
+  renderLogin: (req, res) => {
+    console.log(req.session);
+    render(res, templates.login({
+      req,
+      pageTitle: 'Log In',
+      curUser: req.user,
     }));
   },
 
@@ -20,6 +29,7 @@ const handler = {
         render(res, templates.courses({
           courses,
           pageTitle: 'Courses',
+          curUser: req.user,
         }));
       })
   ),
@@ -35,11 +45,13 @@ const handler = {
         render(res, templates.course({
           course,
           pageTitle: course.name,
+          curUser: req.user,
         }));
       } else {
         res.status(404);
         render(res, templates.notFound({
           pageTitle: '404 Not Found',
+          curUser: req.user,
         }));
       }
     })
@@ -67,11 +79,13 @@ const handler = {
           course,
           section,
           pageTitle: section.name,
+          curUser: req.user,
         }));
       } else {
         res.status(404);
         render(res, templates.notFound({
           pageTitle: '404 Not Found',
+          curUser: req.user,
         }));
       }
     });
@@ -83,6 +97,7 @@ const handler = {
         render(res, templates.users({
           users,
           pageTitle: 'Users',
+          curUser: req.user,
         }));
       })
   ),
@@ -97,25 +112,30 @@ const handler = {
         render(res, templates.user({
           user,
           pageTitle: user.name,
+          curUser: req.user,
         }));
       } else {
         res.status(404);
         render(res, templates.notFound({
           pageTitle: '404 Not Found',
+          curUser: req.user,
         }));
       }
     })
   ),
-
-
 };
 
+const ensureAuthenticated = (req, res, next) => (
+  (req.isAuthenticated()) ? next() : res.redirect('/login')
+);
+
 router.get('/', handler.renderRoot);
+router.get('/login', handler.renderLogin);
 // Course
 router.get('/courses', handler.renderCourses);
-router.get('/courses/:courseId', handler.renderCourse);
+router.get('/courses/:courseId', ensureAuthenticated, handler.renderCourse);
 // Section
-router.get('/courses/:courseId/sections/:sectionId', handler.renderSection);
+router.get('/courses/:courseId/sections/:sectionId', ensureAuthenticated, handler.renderSection);
 // User
 router.get('/users/:userId', handler.renderUser);
 
