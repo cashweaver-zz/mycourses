@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    div.container-fluid
+      div.row
+        include includes/sidebar
+        div.col-sm-9.offset-sm-3.col-md-10.offset-md-2.main
+          h2 Edit User
+
+          form(method='POST' action=`http://localhost:3000/api/1/users/${user.id}?_method=PUT`)
+            each fieldKey in Object.keys(fields)
+              div.form-group
+                label(for=`${fieldKey}`)= `${fieldKey[0].toUpperCase()}${fieldKey.split(/(?=[A-Z])/).join(' ').slice(1)}`
+                if /VARCHAR/.test(fields[fieldKey].type)
+                  input.form-control(type=text name=`${fieldKey}` placeholder=`${fieldKey}` value=`${user[fieldKey]}`)
+                else if /TEXT/.test(fields[fieldKey].type)
+                  textarea.form-control(type=text name=`${fieldKey}` placeholder=`${fieldKey}`)= user[fieldKey]
+                else if /INTEGER/.test(fields[fieldKey].type)
+                  input.form-control(type='number' name=`${fieldKey}` value=`${user[fieldKey]}`)
+            input.btn.btn-success(type='submit' value='Save Changes')
+
+
+    include includes/footer.pug

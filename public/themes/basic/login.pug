@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/header.pug
+    div.container
+      div.row
+        div.col-xs-12
+          h2 Log In
+
+          a.btn.btn-secondary(href='/auth/github')
+            i.fa.fa-github(aria-hidden='true')
+            span Github
+
+    include includes/footer.pug

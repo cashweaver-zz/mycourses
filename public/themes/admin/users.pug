@@ -1,0 +1,44 @@
+doctype html
+html(lang='en')
+  include includes/head.pug
+  body
+    include includes/header.pug
+    div.container-fluid
+      div.row
+        include includes/sidebar
+        div.col-sm-9.offset-sm-3.col-md-10.offset-md-2.main
+          h2 Users
+
+          a.btn.btn-success(href='/admin/users/add')
+            i.fa.fa-plus(aria-hidden='true')
+            span Add a User
+
+          table.table.table-hover.table-responsive.content-manage
+            thead.thead-default
+              tr
+                th Id
+                th Name
+                th Email
+                th Created At
+                th Updated At
+                th
+            tbody
+              each user in users
+                tr
+                  td= user.id
+                  td= user.fullName
+                  td= user.email
+                  td= user.createdAt
+                  td= user.updatedAt
+                  td
+                    div.btn-group(role='group')
+                      a.btn.btn-secondary(href=`/users/${user.id}`)
+                        i.fa.fa-eye(aria-hidden='true')
+                        span.sr-only View
+                      a.btn.btn-secondary(href=`/admin/users/${user.id}/edit`)
+                        i.fa.fa-pencil(aria-hidden='true')
+                        span.sr-only Edit
+                      a.btn.btn-danger(href='#' data-action='deleteUser' data-userId=`${user.id}`)
+                        i.fa.fa-trash(aria-hidden='true')
+                        span.sr-only Delete
+    include includes/footer.pug
