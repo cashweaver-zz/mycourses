@@ -1,6 +1,6 @@
 {
   "name": "online-learning-platform",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A self-hosted online learning platform written in node",
   "scripts": {
     "test": "./scripts/test.sh",

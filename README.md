@@ -2,6 +2,10 @@
 
 A self-hosted online learning platform written in node.
 
+## Lessons Learned
+
+This project was built over three days in the pursuit of improving my understanding of software development, APIs (specifically RESTful), TDD/BDD, and tying a bunch of components together into a full stack application. I feel I've been successful. I reimplemented a few wheels and gained a better and lower level understanding of how those wheels are built, and why they are built the way they are.
+
 ## Development Plan
 
 - [x] Basic views
@@ -26,25 +30,8 @@ A self-hosted online learning platform written in node.
   - [x] Add
   - [x] Edit
   - [x] Manage (admin)
-- [ ] Authentication
+- [x] Authentication
 - [ ] Authorization
-  - Only authorized users can
-    - [ ] Access the admin views
-    - [ ] Create a Course
-    - [ ] View the list of all Courses
-    - [ ] View a Course
-    - [ ] Edit a Course
-    - [ ] Delete a Course
-    - [ ] Create a Section
-    - [ ] View a Section
-    - [ ] Edit a Section
-    - [ ] Delete a Section
-- [ ] Authentication views
-  - [ ] Register
-  - [ ] Login
-  - [ ] Logout
+- [x] Authentication views
+  - [x] Login
 
-## Lessons Learned
-
-- REST APIs
-  - Don't reimplement the wheel! Use Loopback or another pre-existing solution.
