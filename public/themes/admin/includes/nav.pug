@@ -1,5 +1,13 @@
-ul
-  li
-    a(href='/admin') Dashboard
-  li
-    a(href='/admin/courses') Courses
+nav.navbar.navbar-dark.navbar-fixed-top.bg-inverse
+  button.navbar-toggler.hidden-sm-up(type='button' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar')
+    span.sr-only Toggle navigation
+    span.icon-bar
+    span.icon-bar
+    span.icon-bar
+
+  a.navbar-brand(href='#') Online Learning Platform
+  div(id='navbar')
+    nav.nav.navbar-nav.pull-xs-left
+      a.nav-item.nav-link(href='/') Public Website
+    nav.nav.navbar-nav.pull-xs-left.pull-sm-right
+      a.nav-item.nav-link(href='/auth/logout') Logout

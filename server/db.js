@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 
-
 const sqlitePath = `/vagrant/db/${process.env.NODE_ENV}-database.sqlite`;
 
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -35,6 +34,19 @@ const Section = sequelize.define('section', {
   },
 });
 
+const User = sequelize.define('user', {
+  fullName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  githubId: Sequelize.STRING,
+  facebookId: Sequelize.STRING,
+});
+
 Section.belongsTo(Course);
 Course.hasMany(Section);
 
@@ -44,4 +56,5 @@ module.exports = {
   Course,
   Section,
   sequelize,
+  User,
 };
