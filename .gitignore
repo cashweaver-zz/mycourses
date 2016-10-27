@@ -51,3 +51,6 @@ yarn*
 
 # Databases
 *.sqlite
+
+# Sensitive files
+config.js
