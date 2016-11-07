@@ -1,6 +1,6 @@
 {
   "name": "mycourses",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A self-hosted online learning platform written in node",
   "scripts": {
     "test": "./scripts/test.sh",
