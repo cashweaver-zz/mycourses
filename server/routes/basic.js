@@ -10,7 +10,7 @@ const router = express.Router();
 const handler = {
   renderRoot: (req, res) => {
     render(res, templates.index({
-      pageTitle: 'Online Learning Platform',
+      pageTitle: 'MyCourses',
       curUser: req.user,
     }));
   },
