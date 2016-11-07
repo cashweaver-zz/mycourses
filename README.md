@@ -1,4 +1,4 @@
-# Online Learning Platform
+# MyCourses
 
 A self-hosted online learning platform written in node.
 
